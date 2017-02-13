@@ -18,15 +18,12 @@ class UsersController < ApplicationController
     if @first_micropost.nil?
       @first_micropost = "N/A"
     else
-      # @first_micropost = @first_micropost.content would return a NoMethodError
-      # because @first_micropost is a CollectionProxy, not a Micropost, and it
-      # doesn't have a content method
       @first_micropost = @first_micropost.content 
 
       # @user.microposts == CollectionProxy
       # @user.microposts.content would return a NoMethodError because as a CollectionProxy,
       # not a Micropost, it doesn't have a content method
-      # @user.microposts == Micropost, and it DOES have a content method
+      # @user.microposts.first == Micropost, and it DOES have a content method
       # if you wanted to get the Microposts (and contents) from the CollectionProxy, use:
       # @user.microposts.find_by(user_id: @user.id).content
       # this only returns the 1st one because of [LIMIT, 1] in generated query
